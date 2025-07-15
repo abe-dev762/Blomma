@@ -1,50 +1,37 @@
-import React from "react"
-import { TiShoppingCart } from "react-icons/ti"
-import { useSelector, useDispatch } from "react-redux"
-import { addToCart } from "../stores/CartSlice"
-import { products } from "../product"
-
+import React from 'react' 
+import { Link } from 'react-router-dom';
+import { TiShoppingCart } from 'react-icons/ti';
+import { useSelector, useDispatch } from 'react-redux';
+import { addToCart } from '../stores/CartSlice';
 
 const ProductCart = (props) => {
     const carts = useSelector(store => store.cart.items);
-    const {name, price, image, slug} = props.data;
+    const {id, name, price, image, slug} = props.data;
     const dispatch = useDispatch();
-    
     const handleAddToCart = () => {
         dispatch(addToCart({
             productId: id,
             quantity: 1
         }));
+        console.log(carts)
     }
     return (
-        <>
-         {products.map((category, index) => (
-            <div key={index}>
-                <h1>
-                    <div>{category.category}</div>
-                </h1>
-                <div>
-                    {category.product.map((product, productIndex) => (
-                        <div key={productIndex}>
-                            <img
-                            src={image}
-                            alt={name}/>
-                            <h3>{name}</h3>
-                            <div>
-                                <p><span>{price}</span></p>
-                                <button>
-                                    <TiShoppingCart/>Add To Cart
-                                </button>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-         ))}
-        </>
-        
-    )
-
+    <div className='bg-white p-5 rounded-xl shadow-sm'>
+        <Link to={slug}>
+            <img src={image} alt='' className='w-full h-80 object-cover object-top drop-shadow-[0_30px_30px_#0007]' />
+        </Link>
+        <h3 className='text-2xl py-3 text-center font-medium'>{name}</h3>
+        <div className='flex justify-between items-center'>
+            <p>
+                $<span className='text-2xl font-medium'>{price}</span>
+            </p>
+            <button className='bg-gray-300 p-2 rounded-md text-sm hover:bg-gray-400 flex gap-2' onClick={handleAddToCart}>
+                <TiShoppingCart className='w-5'/>
+                Add To Cart
+            </button>
+        </div>
+    </div>
+  )
 }
 
 export default ProductCart
