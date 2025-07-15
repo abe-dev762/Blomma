@@ -26,7 +26,7 @@ const Detail = () => {
     const handleAddToCart = () => {
         dispatch(addToCart({
             productId: detail.id,
-            quantity: quantity
+            quantity: quantity,
         }));
     }
   return (

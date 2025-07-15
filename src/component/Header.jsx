@@ -12,7 +12,7 @@ const carts = useSelector(store => store.cart.items);
 const dispatch = useDispatch();
 useEffect(() => {
     let total = 0;
-    carts.forEach(item => total += item.qantity);
+    carts.forEach(item => total += item.quantity);
     setTotalQuantity(total);
 }, [carts])
 
